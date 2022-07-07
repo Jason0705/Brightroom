@@ -33,6 +33,7 @@ public struct ClassicImageEditOptions {
   
   public var croppingAspectRatio: PixelAspectRatio? = .square
   public var isFaceDetectionEnabled: Bool = false
+  public var style: ClassicImageEditStyle = ClassicImageEditStyle()
   
   public var classes: Classes = .init()
   

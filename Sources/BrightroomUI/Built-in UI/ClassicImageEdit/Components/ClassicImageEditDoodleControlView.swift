@@ -32,7 +32,7 @@ public final class ClassicImageEditDoodleControl : ClassicImageEditDoodleControl
 
     super.setup()
 
-    backgroundColor = ClassicImageEditStyle.default.control.backgroundColor
+    backgroundColor = viewModel.options.style.control.backgroundColor
 
     addSubview(navigationView)
 

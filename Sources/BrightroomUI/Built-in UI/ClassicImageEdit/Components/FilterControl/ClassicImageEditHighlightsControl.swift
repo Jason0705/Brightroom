@@ -45,7 +45,7 @@ open class ClassicImageEditHighlightsControl : ClassicImageEditHighlightsControl
   open override func setup() {
     super.setup()
     
-    backgroundColor = ClassicImageEditStyle.default.control.backgroundColor
+    backgroundColor = viewModel.options.style.control.backgroundColor
     
     TempCode.layout(navigationView: navigationView, slider: slider, in: self)
     

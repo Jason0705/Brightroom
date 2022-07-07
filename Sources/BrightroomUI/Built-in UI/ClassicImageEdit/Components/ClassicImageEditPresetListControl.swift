@@ -118,7 +118,7 @@ open class ClassicImageEditPresetListControl: ClassicImageEditPresetListControlB
   open override func setup() {
     super.setup()
 
-    backgroundColor = ClassicImageEditStyle.default.control.backgroundColor
+    backgroundColor = viewModel.options.style.control.backgroundColor
 
     addSubview(collectionView)
     
@@ -351,7 +351,7 @@ open class ClassicImageEditPresetListControl: ClassicImageEditPresetListControlB
         
         nameLabel.textAlignment = .center
         nameLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        nameLabel.textColor = ClassicImageEditStyle.default.black
+        nameLabel.textColor = viewModel.options.style.onBackgroundColor
         
       }
       

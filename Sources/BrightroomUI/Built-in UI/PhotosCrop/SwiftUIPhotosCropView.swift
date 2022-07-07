@@ -36,29 +36,31 @@ public struct SwiftUIPhotosCropView: UIViewControllerRepresentable {
   
   private let editingStack: EditingStack
   private let options: PhotosCropViewController.Options
-  private let onCancel: () -> Void
-  private let onDone: () -> Void
-  private let onMore: () -> Void
+  private let localizedStrings: PhotosCropViewController.LocalizedStrings
+  private let onCancel: (() -> Void)?
+  private let onDone: (() -> Void)?
+  private let onUtil: (() -> Void)?
   
-  public init(editingStack: EditingStack, options: PhotosCropViewController.Options = PhotosCropViewController.Options(), onCancel: @escaping () -> Void, onDone: @escaping () -> Void, onMore: @escaping () -> Void) {
+  public init(editingStack: EditingStack, options: PhotosCropViewController.Options = PhotosCropViewController.Options(), localizedStrings: PhotosCropViewController.LocalizedStrings = PhotosCropViewController.LocalizedStrings(), onCancel: (() -> Void)? = nil, onDone: (() -> Void)? = nil, onUtil: (() -> Void)? = nil) {
     self.editingStack = editingStack
     self.options = options
+    self.localizedStrings = localizedStrings
     self.onCancel = onCancel
     self.onDone = onDone
-    self.onMore = onMore
+    self.onUtil = onUtil
     editingStack.start()
   }
   
   public func makeUIViewController(context: Context) -> PhotosCropViewController {
-    let cropViewController = PhotosCropViewController(editingStack: editingStack, options: options)
+    let cropViewController = PhotosCropViewController(editingStack: editingStack, options: options, localizedStrings: localizedStrings)
     cropViewController.handlers.didFinish = { _ in
       onDone()
     }
     cropViewController.handlers.didCancel = { _ in
       onCancel()
     }
-    cropViewController.handlers.didMore = { _ in
-      onMore()
+    cropViewController.handlers.didTapUtil = { _ in
+      onUtil()
     }
     return cropViewController
   }

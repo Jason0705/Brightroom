@@ -61,6 +61,8 @@ public final class ClassicImageEditStepSlider : UIControl {
   private let feedbackGenerator = UISelectionFeedbackGenerator()
 
   private let offset: Double = 0.05
+  
+  private let style = ClassicImageEditStyle.default
 
   public private(set) var step: Int = 0 {
     didSet {
@@ -76,10 +78,11 @@ public final class ClassicImageEditStepSlider : UIControl {
     }
   }
 
-  private let internalSlider = _StepSlider(frame: .zero)
+  private var internalSlider = _StepSlider(frame: .zero)
 
-  public override init(frame: CGRect) {
+  public override init(frame: CGRect, style: ClassicImageEditStyle = ClassicImageEditStyle.default) {
     super.init(frame: .zero)
+    self.style = style
     setup()
     feedbackGenerator.prepare()
   }
@@ -89,7 +92,7 @@ public final class ClassicImageEditStepSlider : UIControl {
   }
 
   private func setup() {
-
+    internalSlider = _StepSlider(frame: .zero, style: style)
     internalSlider.addTarget(self, action: #selector(__didChangeValue), for: .valueChanged)
 
     addSubview(internalSlider)
@@ -253,6 +256,7 @@ private final class _StepSlider: UISlider {
   let stepLabel: UILabel = .init()
 
   private var _trackImageView: UIImageView?
+  private var style: ClassicImageEditStyle = ClassicImageEditStyle.default
 
   var dotLocation: ClassicImageEditStepSlider.Mode = .plus {
     didSet {
@@ -260,9 +264,10 @@ private final class _StepSlider: UISlider {
     }
   }
 
-  override init(frame: CGRect) {
+  override init(frame: CGRect, style: ClassicImageEditStyle = ClassicImageEditStyle.default) {
 
     super.init(frame: frame)
+    self.style = style
     self.setup()
   }
 
@@ -332,12 +337,12 @@ private final class _StepSlider: UISlider {
     minimumTrackTintColor = UIColor.clear
     maximumTrackTintColor = UIColor.clear
     setThumbImage(UIImage(named: "slider_thumb", in: bundle, compatibleWith: nil), for: [])
-    tintColor = ClassicImageEditStyle.default.black
+    tintColor = style.onBackgroundColor
 
     let label = stepLabel
     label.backgroundColor = UIColor.clear
     label.font = UIFont.monospacedDigitSystemFont(ofSize: 12, weight: .medium)
-    label.textColor = UIColor.black
+    label.textColor = style.onBackgroundColor
     label.textAlignment = .center
 
     self.addSubview(label)

@@ -72,7 +72,7 @@ open class ClassicImageEditRootControl: ClassicImageEditRootControlBase {
       presetListControl: presetListControl
     )
 
-    backgroundColor = ClassicImageEditStyle.default.control.backgroundColor
+    backgroundColor = viewModel.options.style.control.backgroundColor
 
     layout: do {
 
@@ -109,11 +109,11 @@ open class ClassicImageEditRootControl: ClassicImageEditRootControlBase {
       filtersButton.tintColor = .clear
       editButton.tintColor = .clear
 
-      filtersButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
-      editButton.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
+      filtersButton.setTitleColor(viewModel.options.style.onBackgroundColor.withAlphaComponent(0.5), for: .normal)
+      editButton.setTitleColor(viewModel.options.style.onBackgroundColor.withAlphaComponent(0.5), for: .normal)
 
-      filtersButton.setTitleColor(.black, for: .selected)
-      editButton.setTitleColor(.black, for: .selected)
+      filtersButton.setTitleColor(viewModel.options.style.onBackgroundColor, for: .selected)
+      editButton.setTitleColor(viewModel.options.style.onBackgroundColor, for: .selected)
 
       filtersButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: 17)
       editButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: 17)
@@ -199,7 +199,7 @@ open class ClassicImageEditNoPresetRootControl: ClassicImageEditRootControlBase 
       presetListControl: presetListControl
     )
 
-    backgroundColor = ClassicImageEditStyle.default.control.backgroundColor
+    backgroundColor = viewModel.options.style.control.backgroundColor
 
     layout: do {
 

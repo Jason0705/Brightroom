@@ -39,7 +39,7 @@ open class ClassicImageEditMaskControl : ClassicImageEditMaskControlBase {
   open override func setup() {
     super.setup()
 
-    backgroundColor = ClassicImageEditStyle.default.control.backgroundColor
+    backgroundColor = viewModel.options.style.control.backgroundColor
     
     base: do {
       
@@ -76,6 +76,7 @@ open class ClassicImageEditMaskControl : ClassicImageEditMaskControlBase {
       clearButton.addTarget(self, action: #selector(didTapRemoveAllButton), for: .touchUpInside)
       clearButton.setTitle(viewModel.localizedStrings.clear, for: .normal)
       clearButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+      clearButton.setTitleColor(viewModel.options.style.activeColor, for: .normal)
       
     }
 
@@ -92,8 +93,8 @@ open class ClassicImageEditMaskControl : ClassicImageEditMaskControlBase {
       slider.translatesAutoresizingMaskIntoConstraints = false
 
       smallLabel.text = viewModel.localizedStrings.brushSizeSmall
-      smallLabel.textColor = .black
-      largeLabel.textColor = .black
+      smallLabel.textColor = viewModel.options.style.onBackgroundColor
+      largeLabel.textColor = viewModel.options.style.onBackgroundColor
       largeLabel.text = viewModel.localizedStrings.brushSizeLarge
 
       smallLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -121,8 +122,8 @@ open class ClassicImageEditMaskControl : ClassicImageEditMaskControlBase {
       sizeIndicator.translatesAutoresizingMaskIntoConstraints = false
       sizeIndicator.layer.cornerRadius = 50 / 2
       sizeIndicator.clipsToBounds = false
-      sizeIndicator.backgroundColor = .white
-      sizeIndicator.layer.borderColor = UIColor.black.cgColor
+      sizeIndicator.backgroundColor = .clear
+      sizeIndicator.layer.borderColor = viewModel.options.style.onBackgroundColor.cgColor
       sizeIndicator.layer.borderWidth = 1
       NSLayoutConstraint.activate([
         sizeIndicator.widthAnchor.constraint(equalToConstant: 50),

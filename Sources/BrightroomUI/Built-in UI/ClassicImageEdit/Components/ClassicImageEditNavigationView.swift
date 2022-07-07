@@ -45,8 +45,8 @@ open class ClassicImageEditNavigationView : UIStackView {
     cancelButton.setTitle(cancelText, for: .normal)
     saveButton.setTitle(saveText, for: .normal)
 
-    cancelButton.setTitleColor(ClassicImageEditStyle.default.black, for: .normal)
-    saveButton.setTitleColor(ClassicImageEditStyle.default.black, for: .normal)
+    cancelButton.setTitleColor(ClassicImageEditStyle.default.onBackgroundColor, for: .normal)
+    saveButton.setTitleColor(ClassicImageEditStyle.default.onBackgroundColor, for: .normal)
 
     cancelButton.titleLabel!.font = UIFont.systemFont(ofSize: 17)
     saveButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: 17)

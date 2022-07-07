@@ -189,7 +189,7 @@ public final class ClassicImageEditViewController: UIViewController {
 
     layout: do {
       root: do {
-        view.backgroundColor = .white
+        view.backgroundColor = viewModel.options.style.backgroundColor
 
         let guide = UILayoutGuide()
 
@@ -250,7 +250,7 @@ public final class ClassicImageEditViewController: UIViewController {
       }
 
       root: do {
-        view.backgroundColor = ClassicImageEditStyle.default.control.backgroundColor
+        view.backgroundColor = viewModel.options.style.backgroundColor
       }
 
       edit: do {

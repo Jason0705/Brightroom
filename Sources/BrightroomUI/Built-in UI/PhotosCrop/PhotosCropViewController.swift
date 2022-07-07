@@ -36,7 +36,7 @@ import BrightroomEngine
 public final class PhotosCropViewController: UIViewController {
     
     public struct LocalizedStrings {
-        public var button_more_title: String = "More"
+        public var button_util_title: String = "Next"
         public var button_done_title: String = "Done"
         public var button_cancel_title: String = "Cancel"
         public var button_reset_title: String = "Reset"
@@ -49,7 +49,7 @@ public final class PhotosCropViewController: UIViewController {
     
     public enum PhotosCropBottomStackButton {
         case cancel
-        case more
+        case util
         case done
     }
     
@@ -62,11 +62,7 @@ public final class PhotosCropViewController: UIViewController {
         
         public var aspectRatioOptions: AspectRatioOptions = .selectable
         public var ignoreBottomStackButtons: [PhotosCropBottomStackButton] = [PhotosCropBottomStackButton]()
-        public var backgroundColor: UIColor = .black
-        public var normalColor: UIColor = .white
-        public var inactiveColor: UIColor = .systemGray
-        public var activeColor: UIColor = .systemYellow
-        public var disabledColor: UIColor = .darkGray
+      public var style: ClassicImageEditStyle = ClassicImageEditStyle()
         
         public init() {
             
@@ -74,7 +70,7 @@ public final class PhotosCropViewController: UIViewController {
     }
     
     public struct Handlers {
-        public var didMore: (PhotosCropViewController) -> Void = { _ in }
+        public var didTapUtil: (PhotosCropViewController) -> Void = { _ in }
         public var didFinish: (PhotosCropViewController) -> Void = { _ in }
         public var didCancel: (PhotosCropViewController) -> Void = { _ in }
     }
@@ -96,7 +92,7 @@ public final class PhotosCropViewController: UIViewController {
     public var options = Options()
     
     private let doneButton = UIButton(type: .system)
-    private let moreButton = UIButton(type: .system)
+    private let utilButton = UIButton(type: .system)
     private let cancelButton = UIButton(type: .system)
     private let aspectRatioButton = UIButton(type: .system)
     private let resetButton = UIButton(type: .system)
@@ -169,12 +165,12 @@ public final class PhotosCropViewController: UIViewController {
         
         editingStack.start()
         cropView.isAutoApplyEditingStackEnabled = true
-        view.backgroundColor = options.backgroundColor
+      view.backgroundColor = options.style.backgroundColor
         view.clipsToBounds = true
         
         aspectRatioButton&>.do {
             $0.setImage(UIImage(named: "aspectratio", in: bundle, compatibleWith: nil), for: .normal)
-            $0.tintColor = options.inactiveColor
+            $0.tintColor = options.style.inactiveColor
             $0.addTarget(self, action: #selector(handleAspectRatioButton), for: .touchUpInside)
         }
         
@@ -182,14 +178,14 @@ public final class PhotosCropViewController: UIViewController {
             // TODO: Localize
             $0.setTitle(localizedStrings.button_reset_title, for: .normal)
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-            $0.setTitleColor(options.activeColor, for: .normal)
+            $0.setTitleColor(options.style.activeColor, for: .normal)
             $0.addTarget(self, action: #selector(handleResetButton), for: .touchUpInside)
             $0.isHidden = true
         }
         
         rotateButton&>.do {
             $0.setImage(UIImage(named: "rotate", in: bundle, compatibleWith: nil), for: .normal)
-            $0.tintColor = options.inactiveColor
+            $0.tintColor = options.style.inactiveColor
             $0.addTarget(self, action: #selector(handleRotateButton), for: .touchUpInside)
         }
         
@@ -203,7 +199,7 @@ public final class PhotosCropViewController: UIViewController {
         cancelButton&>.do {
             $0.setTitle(localizedStrings.button_cancel_title, for: .normal)
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-            $0.setTitleColor(options.normalColor, for: .normal)
+            $0.setTitleColor(options.style.onBackgroundColor, for: .normal)
             $0.addTarget(self, action: #selector(handleCancelButton), for: .touchUpInside)
             $0.isHidden = options.ignoreBottomStackButtons.contains(.cancel)
         }
@@ -211,28 +207,28 @@ public final class PhotosCropViewController: UIViewController {
         doneButton&>.do {
             $0.setTitle(localizedStrings.button_done_title, for: .normal)
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-            $0.setTitleColor(options.activeColor, for: .normal)
-            $0.setTitleColor(options.disabledColor, for: .disabled)
+            $0.setTitleColor(options.style.activeColor, for: .normal)
+            $0.setTitleColor(options.style.disabledColor, for: .disabled)
             $0.addTarget(self, action: #selector(handleDoneButton), for: .touchUpInside)
             $0.isHidden = options.ignoreBottomStackButtons.contains(.done)
         }
         
-        moreButton&>.do {
-            $0.setTitle(localizedStrings.button_more_title, for: .normal)
+      utilButton&>.do {
+            $0.setTitle(localizedStrings.button_util_title, for: .normal)
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-            $0.setTitleColor(options.activeColor, for: .normal)
-            $0.addTarget(self, action: #selector(handleMoreButton), for: .touchUpInside)
-            $0.isHidden = options.ignoreBottomStackButtons.contains(.more)
+            $0.setTitleColor(options.style.activeColor, for: .normal)
+            $0.addTarget(self, action: #selector(handleUtilButton), for: .touchUpInside)
+            $0.isHidden = options.ignoreBottomStackButtons.contains(.util)
         }
         
         let bottomStackView = UIStackView()&>.do {
             $0.addArrangedSubview(cancelButton)
-            $0.addArrangedSubview(moreButton)
+            $0.addArrangedSubview(utilButton)
             $0.addArrangedSubview(doneButton)
             $0.distribution = .equalSpacing
             $0.axis = .horizontal
             $0.alignment = .fill
-            $0.isHidden = Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons))
+            $0.isHidden = Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.util, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons))
         }
       
         let spacer = UIView()&>.do {
@@ -286,7 +282,7 @@ public final class PhotosCropViewController: UIViewController {
                 $0.leftAnchor.constraint(equalTo: bottomStackContainerView.leftAnchor),
                 $0.rightAnchor.constraint(equalTo: bottomStackContainerView.rightAnchor),
                 $0.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                $0.heightAnchor.constraint(equalToConstant: Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons)) ? 0 : 50),
+                $0.heightAnchor.constraint(equalToConstant: Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.util, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons)) ? 0 : 50),
             ])
         }
         
@@ -336,7 +332,7 @@ public final class PhotosCropViewController: UIViewController {
                 self.resetButton.isEnabled = false
                 self.rotateButton.isEnabled = false
                 self.doneButton.isEnabled = false
-                self.moreButton.isEnabled = false
+                self.utilButton.isEnabled = false
                 
             }
             
@@ -367,7 +363,7 @@ public final class PhotosCropViewController: UIViewController {
         self.resetButton.isEnabled = true
         self.rotateButton.isEnabled = true
         self.doneButton.isEnabled = true
-        self.moreButton.isEnabled = true
+        self.utilButton.isEnabled = true
         
         let control = PhotosCropAspectRatioControl(
             originalAspectRatio: .init(state.imageSize),
@@ -438,10 +434,10 @@ public final class PhotosCropViewController: UIViewController {
             UIViewPropertyAnimator.init(duration: 0.4, dampingRatio: 1) { [self] in
                 if value {
                     aspectRatioControl?.alpha = 1
-                    aspectRatioButton.tintColor = options.activeColor
+                    aspectRatioButton.tintColor = options.style.activeColor
                 } else {
                     aspectRatioControl?.alpha = 0
-                    aspectRatioButton.tintColor = options.inactiveColor
+                    aspectRatioButton.tintColor = options.style.inactiveColor
                 }
             }
             .startAnimation()
@@ -478,8 +474,8 @@ public final class PhotosCropViewController: UIViewController {
         handlers.didCancel(self)
     }
     
-    @objc private func handleMoreButton() {
-        handlers.didMore(self)
+    @objc private func handleUtilButton() {
+        handlers.didTapUtil(self)
     }
     
     @objc private func handleDoneButton() {

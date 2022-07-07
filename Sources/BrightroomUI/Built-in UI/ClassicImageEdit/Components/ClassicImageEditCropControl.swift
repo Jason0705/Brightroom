@@ -32,7 +32,7 @@ public final class ClassicImageEditCropControl : ClassicImageEditCropControlBase
   public override func setup() {
     super.setup()
 
-    backgroundColor = ClassicImageEditStyle.default.control.backgroundColor
+    backgroundColor = viewModel.options.style.control.backgroundColor
 
     addSubview(navigationView)
 

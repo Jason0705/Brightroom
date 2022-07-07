@@ -27,7 +27,8 @@ public struct ClassicImageEditStyle {
 
   public struct Control {
 
-    public var backgroundColor = UIColor(white: 0.98, alpha: 1)
+//    public var backgroundColor = UIColor(white: 0.98, alpha: 1)
+    public var backgroundColor = UIColor.clear
 
     public init() {
 
@@ -37,6 +38,12 @@ public struct ClassicImageEditStyle {
   public var control = Control()
   
   public var black = UIColor(white: 0.05, alpha: 1)
+  
+  public var backgroundColor: UIColor = .black
+  public var onBackgroundColor: UIColor = .white
+  public var inactiveColor: UIColor = .systemGray
+  public var activeColor: UIColor = .systemYellow
+  public var disabledColor: UIColor = .darkGray
 
   public init() {
 
