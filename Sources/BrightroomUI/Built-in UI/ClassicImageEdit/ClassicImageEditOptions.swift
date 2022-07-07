@@ -33,6 +33,7 @@ public struct ClassicImageEditOptions {
   
   public var croppingAspectRatio: PixelAspectRatio? = .square
   public var isFaceDetectionEnabled: Bool = false
+  public var onlyEdit: Bool = false
   
   public var classes: Classes = .init()
   
@@ -47,7 +48,7 @@ extension ClassicImageEditOptions {
       /**
        You might use `ClassicImageEditNoPresetRootControl` if you do not need using Filter(Preset) panel.
        */
-      public var rootControl: ClassicImageEditRootControlBase.Type = ClassicImageEditRootControl.self
+      public var rootControl: ClassicImageEditRootControlBase.Type = onlyEdit ? EditRootControl : ClassicImageEditRootControl.self
 
       public var presetListControl: ClassicImageEditPresetListControlBase.Type = ClassicImageEditPresetListControl.self
       public var editMenuControl: ClassicImageEditEditMenuControlBase.Type = ClassicImageEditEditMenu.EditMenuControl.self
