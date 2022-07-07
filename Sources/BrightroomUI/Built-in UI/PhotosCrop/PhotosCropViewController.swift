@@ -235,9 +235,13 @@ public final class PhotosCropViewController: UIViewController {
             $0.isHidden = Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons))
         }
       
+        let spacer = UIView()&>.do {
+            $0.backgroundColor = .clear
+        }
+        
       let bottomStackContainerView = UIStackView()&>.do {
         $0.addArrangedSubview(bottomStackView)
-        $0.addArrangedSubview(View())
+        $0.addArrangedSubview(spacer)
         $0.axis = .vertical
         $0.alignment = .fill
         
@@ -283,6 +287,16 @@ public final class PhotosCropViewController: UIViewController {
                 $0.rightAnchor.constraint(equalTo: bottomStackContainerView.rightAnchor),
                 $0.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
                 $0.heightAnchor.constraint(equalToConstant: Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons)) ? 0 : 50),
+            ])
+        }
+        
+        spacer&>.do {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                $0.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                $0.leftAnchor.constraint(equalTo: bottomStackContainerView.leftAnchor),
+                $0.rightAnchor.constraint(equalTo: bottomStackContainerView.rightAnchor),
+                $0.bottomAnchor.constraint(equalTo: bottomStackContainerView.bottomAnchor),
             ])
         }
       
