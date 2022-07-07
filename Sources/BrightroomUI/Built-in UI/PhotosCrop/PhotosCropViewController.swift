@@ -234,17 +234,25 @@ public final class PhotosCropViewController: UIViewController {
             $0.alignment = .fill
             $0.isHidden = Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons))
         }
+      
+      let bottomStackContainerView = UIStackView()&>.do {
+        $0.addArrangedSubview(bottomStackView)
+        $0.addArrangedSubview(View())
+        $0.axis = .vertical
+        $0.alignment = .fill
+        
+      }
         
         view.addSubview(cropView)
         view.addSubview(topStackView)
-        view.addSubview(bottomStackView)
+        view.addSubview(bottomStackContainerView)
         
         view.addLayoutGuide(aspectRatioControlLayoutGuide)
         
         topStackView&>.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                $0.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                $0.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
                 $0.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
                 $0.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             ])
@@ -270,13 +278,23 @@ public final class PhotosCropViewController: UIViewController {
         bottomStackView&>.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                $0.topAnchor.constraint(equalTo: aspectRatioControlLayoutGuide.bottomAnchor),
-                $0.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-                $0.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+                $0.topAnchor.constraint(equalTo: bottomStackContainerView.topAnchor),
+                $0.leftAnchor.constraint(equalTo: bottomStackContainerView.leftAnchor),
+                $0.rightAnchor.constraint(equalTo: bottomStackContainerView.rightAnchor),
                 $0.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
                 $0.heightAnchor.constraint(equalToConstant: Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons)) ? 0 : 50),
             ])
         }
+      
+      bottomStackContainerView&>.do {
+          $0.translatesAutoresizingMaskIntoConstraints = false
+          NSLayoutConstraint.activate([
+              $0.topAnchor.constraint(equalTo: aspectRatioControlLayoutGuide.bottomAnchor),
+              $0.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+              $0.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+              $0.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+          ])
+      }
         
         UIView.performWithoutAnimation {
             view.layoutIfNeeded()
