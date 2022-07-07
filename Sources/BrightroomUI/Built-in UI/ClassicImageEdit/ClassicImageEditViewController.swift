@@ -211,7 +211,7 @@ public final class ClassicImageEditViewController: UIViewController {
           guide.widthAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 1),
 
           {
-            let c = editContainerView.topAnchor.constraint(equalTo: guide.topAnchor)
+            let c = editContainerView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 16)
             c.priority = .defaultHigh
             return c
           }(),
