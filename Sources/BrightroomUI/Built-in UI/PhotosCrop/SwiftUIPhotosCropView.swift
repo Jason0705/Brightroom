@@ -54,13 +54,13 @@ public struct SwiftUIPhotosCropView: UIViewControllerRepresentable {
   public func makeUIViewController(context: Context) -> PhotosCropViewController {
     let cropViewController = PhotosCropViewController(editingStack: editingStack, options: options, localizedStrings: localizedStrings)
     cropViewController.handlers.didFinish = { _ in
-      onDone()
+      onDone?()
     }
     cropViewController.handlers.didCancel = { _ in
-      onCancel()
+      onCancel?()
     }
     cropViewController.handlers.didTapUtil = { _ in
-      onUtil()
+      onUtil?()
     }
     return cropViewController
   }

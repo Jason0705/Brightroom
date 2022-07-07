@@ -36,7 +36,7 @@ public final class ClassicImageEditStepSlider : UIControl {
   
   public var mode: Mode = .plusAndMinus {
     didSet {
-      setupValues()
+      internalSlider.style = style
     }
   }
 
@@ -62,7 +62,11 @@ public final class ClassicImageEditStepSlider : UIControl {
 
   private let offset: Double = 0.05
   
-  private let style = ClassicImageEditStyle.default
+  public var style = ClassicImageEditStyle.default {
+    didSet {
+      internalSlider.style = style
+    }
+  }
 
   public private(set) var step: Int = 0 {
     didSet {
@@ -80,9 +84,8 @@ public final class ClassicImageEditStepSlider : UIControl {
 
   private var internalSlider = _StepSlider(frame: .zero)
 
-  public override init(frame: CGRect, style: ClassicImageEditStyle = ClassicImageEditStyle.default) {
+  public override init(frame: CGRect) {
     super.init(frame: .zero)
-    self.style = style
     setup()
     feedbackGenerator.prepare()
   }
@@ -92,7 +95,6 @@ public final class ClassicImageEditStepSlider : UIControl {
   }
 
   private func setup() {
-    internalSlider = _StepSlider(frame: .zero, style: style)
     internalSlider.addTarget(self, action: #selector(__didChangeValue), for: .valueChanged)
 
     addSubview(internalSlider)
@@ -256,7 +258,12 @@ private final class _StepSlider: UISlider {
   let stepLabel: UILabel = .init()
 
   private var _trackImageView: UIImageView?
-  private var style: ClassicImageEditStyle = ClassicImageEditStyle.default
+  public var style: ClassicImageEditStyle = ClassicImageEditStyle.default {
+    didSet {
+      self.tintColor = style.onBackgroundColor
+      stepLabel.textColor = style.onBackgroundColor
+    }
+  }
 
   var dotLocation: ClassicImageEditStepSlider.Mode = .plus {
     didSet {
@@ -264,10 +271,9 @@ private final class _StepSlider: UISlider {
     }
   }
 
-  override init(frame: CGRect, style: ClassicImageEditStyle = ClassicImageEditStyle.default) {
+  override init(frame: CGRect) {
 
     super.init(frame: frame)
-    self.style = style
     self.setup()
   }
 
@@ -339,13 +345,12 @@ private final class _StepSlider: UISlider {
     setThumbImage(UIImage(named: "slider_thumb", in: bundle, compatibleWith: nil), for: [])
     tintColor = style.onBackgroundColor
 
-    let label = stepLabel
-    label.backgroundColor = UIColor.clear
-    label.font = UIFont.monospacedDigitSystemFont(ofSize: 12, weight: .medium)
-    label.textColor = style.onBackgroundColor
-    label.textAlignment = .center
+    stepLabel.backgroundColor = UIColor.clear
+    stepLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 12, weight: .medium)
+    stepLabel.textColor = style.onBackgroundColor
+    stepLabel.textAlignment = .center
 
-    self.addSubview(label)
+    self.addSubview(stepLabel)
   }
 
   override func layoutSubviews() {

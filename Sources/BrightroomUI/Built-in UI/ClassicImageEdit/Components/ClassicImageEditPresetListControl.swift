@@ -234,12 +234,14 @@ open class ClassicImageEditPresetListControl: ClassicImageEditPresetListControlB
     switch Section.allCases[indexPath.section] {
     case .original:
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NormalCell.identifier, for: indexPath) as! NormalCell
+      cell.style = viewModel.options.style
       cell.set(originalImage: content.originalImage, name: viewModel.localizedStrings.control_preset_normal_name)
       updateSelected(cell: cell, selectedItem: currentSelected)
       return cell
     case .selections:
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectionCell.identifier, for: indexPath) as! SelectionCell
       let filter = content.previews[indexPath.item]
+      cell.style = viewModel.options.style
       cell.set(preview: filter)
       updateSelected(cell: cell, selectedItem: currentSelected)
       return cell
@@ -313,6 +315,7 @@ open class ClassicImageEditPresetListControl: ClassicImageEditPresetListControlB
   open class CellBase : UICollectionViewCell {
     
     let nameLabel: UILabel = .init()
+    var style = ClassicImageEditStyle.default
 
     #if false
     let imageView = _ImageView()
@@ -320,8 +323,10 @@ open class ClassicImageEditPresetListControl: ClassicImageEditPresetListControlB
     let imageView = MetalImageView()
     #endif
 
-    public override init(frame: CGRect) {
+    public override init(frame: CGRect, style: ClassicImageEditStyle) {
       super.init(frame: frame)
+      
+      self.style = style
       
       layout: do {
         imageView.contentMode = .scaleAspectFill
@@ -351,7 +356,7 @@ open class ClassicImageEditPresetListControl: ClassicImageEditPresetListControlB
         
         nameLabel.textAlignment = .center
         nameLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        nameLabel.textColor = viewModel.options.style.onBackgroundColor
+        nameLabel.textColor = style.onBackgroundColor
         
       }
       

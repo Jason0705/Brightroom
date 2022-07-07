@@ -33,7 +33,7 @@ open class ClassicImageEditMaskControl : ClassicImageEditMaskControlBase {
     private lazy var navigationView = ClassicImageEditNavigationView(saveText: viewModel.localizedStrings.done, cancelText: viewModel.localizedStrings.cancel)
   
   private let clearButton = UIButton(type: .system)
-  private let slider = ClassicImageEditStepSlider()
+  private let slider = ClassicImageEditStepSlider(frame: .zero)
   private let sizeIndicator = UIView()
 
   open override func setup() {
