@@ -22,6 +22,17 @@
 import UIKit
 
 public struct ClassicImageEditStyle: Equatable {
+  
+  static func == (lhs: StreetAddress, rhs: StreetAddress) -> Bool {
+    return
+    lhs.backgroundColor == rhs.backgroundColor &&
+    lhs.onBackgroundColor == rhs.onBackgroundColor &&
+    lhs.inactiveColor == rhs.inactiveColor &&
+    lhs.activeColor == rhs.activeColor &&
+    lhs.disabledColor == rhs.disabledColor &&
+    lhs.black == rhs.black &&
+    lhs.control.backgroundColor == rhs.control.backgroundColor
+  }
 
   public static let `default` = ClassicImageEditStyle()
 

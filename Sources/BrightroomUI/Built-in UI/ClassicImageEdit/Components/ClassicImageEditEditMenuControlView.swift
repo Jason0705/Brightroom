@@ -428,7 +428,7 @@ public enum ClassicImageEditEditMenu: CaseIterable {
       
       private let feedbackGenerator = UISelectionFeedbackGenerator()
       
-      private let style = ClassicImageEditStyle.default
+      private var style = ClassicImageEditStyle.default
       
       public var hasChanges: Bool = false {
         didSet {
