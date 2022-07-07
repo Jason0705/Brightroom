@@ -53,7 +53,7 @@ public final class PhotosCropViewController: UIViewController {
         case done
     }
     
-    public struct Options {
+    public struct Options: Equatable {
         
         public enum AspectRatioOptions: Equatable {
             case selectable

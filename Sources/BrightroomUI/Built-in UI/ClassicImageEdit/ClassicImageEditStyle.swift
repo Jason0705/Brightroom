@@ -21,7 +21,7 @@
 
 import UIKit
 
-public struct ClassicImageEditStyle {
+public struct ClassicImageEditStyle: Equatable {
 
   public static let `default` = ClassicImageEditStyle()
 
