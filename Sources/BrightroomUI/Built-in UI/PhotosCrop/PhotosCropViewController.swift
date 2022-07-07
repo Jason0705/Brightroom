@@ -93,7 +93,8 @@ public final class PhotosCropViewController: UIViewController {
   
   public let editingStack: EditingStack
   public var handlers = Handlers()
-      
+    public var optiona = Options()
+    
   private let doneButton = UIButton(type: .system)
   private let moreButton = UIButton(type: .system)
   private let cancelButton = UIButton(type: .system)
@@ -118,6 +119,7 @@ public final class PhotosCropViewController: UIViewController {
     self.localizedStrings = localizedStrings
     self.store = .init(initialState: .init(options: options))
     self.editingStack = editingStack
+      self.options = options
     cropView = .init(editingStack: editingStack)
     super.init(nibName: nil, bundle: nil)
   }
@@ -230,7 +232,7 @@ public final class PhotosCropViewController: UIViewController {
       $0.distribution = .equalSpacing
       $0.axis = .horizontal
       $0.alignment = .fill
-      $0.isHidden = Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons))
+        $0.isHidden = Set([Options.PhotosCropBottomStackButton.cancel, Options.PhotosCropBottomStackButton.more, Options.PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons))
     }
     
     view.addSubview(cropView)
@@ -272,7 +274,7 @@ public final class PhotosCropViewController: UIViewController {
         $0.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
         $0.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
         $0.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        $0.heightAnchor.constraint(equalToConstant: Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons)) ? 0 : 50),
+        $0.heightAnchor.constraint(equalToConstant: Set([Options.PhotosCropBottomStackButton.cancel, Options.PhotosCropBottomStackButton.more, Options.PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons)) ? 0 : 50),
       ])
     }
     
