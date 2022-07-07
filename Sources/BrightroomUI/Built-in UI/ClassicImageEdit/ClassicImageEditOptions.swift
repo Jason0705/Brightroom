@@ -48,7 +48,7 @@ extension ClassicImageEditOptions {
       /**
        You might use `ClassicImageEditNoPresetRootControl` if you do not need using Filter(Preset) panel.
        */
-      public var rootControl: ClassicImageEditRootControlBase.Type = onlyEdit ? EditRootControl : ClassicImageEditRootControl.self
+      public var rootControl: ClassicImageEditRootControlBase.Type = onlyEdit ? EditRootControl.self : ClassicImageEditRootControl.self
 
       public var presetListControl: ClassicImageEditPresetListControlBase.Type = ClassicImageEditPresetListControl.self
       public var editMenuControl: ClassicImageEditEditMenuControlBase.Type = ClassicImageEditEditMenu.EditMenuControl.self
