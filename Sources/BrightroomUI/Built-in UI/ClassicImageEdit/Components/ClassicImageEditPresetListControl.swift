@@ -315,7 +315,11 @@ open class ClassicImageEditPresetListControl: ClassicImageEditPresetListControlB
   open class CellBase : UICollectionViewCell {
     
     let nameLabel: UILabel = .init()
-    var style = ClassicImageEditStyle.default
+    var style = ClassicImageEditStyle.default {
+      didSet {
+        nameLabel.textColor = style.onBackgroundColor
+      }
+    }
 
     #if false
     let imageView = _ImageView()
@@ -323,10 +327,8 @@ open class ClassicImageEditPresetListControl: ClassicImageEditPresetListControlB
     let imageView = MetalImageView()
     #endif
 
-    public override init(frame: CGRect, style: ClassicImageEditStyle) {
+    public override init(frame: CGRect) {
       super.init(frame: frame)
-      
-      self.style = style
       
       layout: do {
         imageView.contentMode = .scaleAspectFill

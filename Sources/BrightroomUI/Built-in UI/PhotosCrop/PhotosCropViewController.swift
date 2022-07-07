@@ -53,7 +53,7 @@ public final class PhotosCropViewController: UIViewController {
         case done
     }
     
-    public struct Options: Equatable {
+    public struct Options {
         
         public enum AspectRatioOptions: Equatable {
             case selectable
@@ -62,7 +62,7 @@ public final class PhotosCropViewController: UIViewController {
         
         public var aspectRatioOptions: AspectRatioOptions = .selectable
         public var ignoreBottomStackButtons: [PhotosCropBottomStackButton] = [PhotosCropBottomStackButton]()
-      public var style: ClassicImageEditStyle = ClassicImageEditStyle()
+      public var style: ClassicImageEditStyle = ClassicImageEditStyle.default
         
         public init() {
             
