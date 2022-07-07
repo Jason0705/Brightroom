@@ -44,7 +44,7 @@ open class ClassicImageEditContrastControl : ClassicImageEditContrastControlBase
   open override func setup() {
     super.setup()
     
-    backgroundColor = viewModel.options.style.control.backgroundColor
+    backgroundColor = viewModel.options.style.backgroundColor
     
     TempCode.layout(navigationView: navigationView, slider: slider, in: self)
     

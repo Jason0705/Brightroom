@@ -118,7 +118,7 @@ open class ClassicImageEditPresetListControl: ClassicImageEditPresetListControlB
   open override func setup() {
     super.setup()
 
-    backgroundColor = viewModel.options.style.control.backgroundColor
+    backgroundColor = viewModel.options.style.backgroundColor
 
     addSubview(collectionView)
     

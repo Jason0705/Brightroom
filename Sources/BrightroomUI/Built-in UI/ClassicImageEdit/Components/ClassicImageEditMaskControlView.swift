@@ -39,7 +39,7 @@ open class ClassicImageEditMaskControl : ClassicImageEditMaskControlBase {
   open override func setup() {
     super.setup()
 
-    backgroundColor = viewModel.options.style.control.backgroundColor
+    backgroundColor = viewModel.options.style.backgroundColor
     
     base: do {
       

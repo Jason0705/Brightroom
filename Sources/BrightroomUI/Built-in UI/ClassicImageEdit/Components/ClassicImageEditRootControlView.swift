@@ -72,7 +72,7 @@ open class ClassicImageEditRootControl: ClassicImageEditRootControlBase {
       presetListControl: presetListControl
     )
 
-    backgroundColor = viewModel.options.style.control.backgroundColor
+    backgroundColor = viewModel.options.style.backgroundColor
 
     layout: do {
 
@@ -199,7 +199,7 @@ open class ClassicImageEditNoPresetRootControl: ClassicImageEditRootControlBase 
       presetListControl: presetListControl
     )
 
-    backgroundColor = viewModel.options.style.control.backgroundColor
+    backgroundColor = viewModel.options.style.backgroundColor
 
     layout: do {
 

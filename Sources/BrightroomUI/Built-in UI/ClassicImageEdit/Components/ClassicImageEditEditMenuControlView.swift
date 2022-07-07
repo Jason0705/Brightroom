@@ -185,7 +185,7 @@ public enum ClassicImageEditEditMenu: CaseIterable {
     override open func setup() {
       super.setup()
       
-      backgroundColor = viewModel.options.style.control.backgroundColor
+      backgroundColor = viewModel.options.style.backgroundColor
       
       layout: do {
         scrollView.showsVerticalScrollIndicator = false

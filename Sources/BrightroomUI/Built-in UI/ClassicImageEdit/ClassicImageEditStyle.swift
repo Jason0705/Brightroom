@@ -23,7 +23,7 @@ import UIKit
 
 public struct ClassicImageEditStyle: Equatable {
   
-  static func == (lhs: ClassicImageEditStyle, rhs: ClassicImageEditStyle) -> Bool {
+  public static func == (lhs: ClassicImageEditStyle, rhs: ClassicImageEditStyle) -> Bool {
     return
     lhs.backgroundColor == rhs.backgroundColor &&
     lhs.onBackgroundColor == rhs.onBackgroundColor &&
