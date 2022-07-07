@@ -47,17 +47,17 @@ public final class PhotosCropViewController: UIViewController {
         public init() {}
     }
     
+    public enum PhotosCropBottomStackButton {
+        case cancel
+        case more
+        case done
+    }
+    
     public struct Options: Equatable {
         
         public enum AspectRatioOptions: Equatable {
             case selectable
             case fixed(PixelAspectRatio?)
-        }
-        
-        public enum PhotosCropBottomStackButton {
-            case cancel
-            case more
-            case done
         }
         
         public var aspectRatioOptions: AspectRatioOptions = .selectable
@@ -232,7 +232,7 @@ public final class PhotosCropViewController: UIViewController {
             $0.distribution = .equalSpacing
             $0.axis = .horizontal
             $0.alignment = .fill
-            $0.isHidden = Set([Options.PhotosCropBottomStackButton.cancel, Options.PhotosCropBottomStackButton.more, Options.PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons))
+            $0.isHidden = Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons))
         }
         
         view.addSubview(cropView)
@@ -274,7 +274,7 @@ public final class PhotosCropViewController: UIViewController {
                 $0.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
                 $0.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
                 $0.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                $0.heightAnchor.constraint(equalToConstant: Set([Options.PhotosCropBottomStackButton.cancel, Options.PhotosCropBottomStackButton.more, Options.PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons)) ? 0 : 50),
+                $0.heightAnchor.constraint(equalToConstant: Set([PhotosCropBottomStackButton.cancel, PhotosCropBottomStackButton.more, PhotosCropBottomStackButton.done]).isSubset(of: Set(options.ignoreBottomStackButtons)) ? 0 : 50),
             ])
         }
         
