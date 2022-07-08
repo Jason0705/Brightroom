@@ -340,8 +340,8 @@ private final class _StepSlider: UISlider {
 
   private func setup() {
 
-    minimumTrackTintColor = style.onBackgroundColor
-    maximumTrackTintColor = style.onBackgroundColor
+    minimumTrackTintColor = UIColor.clear
+    maximumTrackTintColor = UIColor.clear
     setThumbImage(UIImage(named: "slider_thumb", in: bundle, compatibleWith: nil), for: [])
     tintColor = style.onBackgroundColor
 
