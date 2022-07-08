@@ -305,8 +305,8 @@ private final class _StepSlider: UISlider {
 
     layerContext.scaleBy(x: scale, y: scale)
 
-    UIColor(white: 0, alpha: 1).setStroke()
-    UIColor(white: 0, alpha: 1).setFill()
+    style.onBackgroundColor.setStroke()
+    style.onBackgroundColor.setFill()
 
     line: do {
       let path = UIBezierPath()
